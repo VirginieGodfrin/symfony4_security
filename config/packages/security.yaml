@@ -7,14 +7,36 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+    # Remember the authenticators: At the beginning of every request, Symfony calls a set of "authentication listeners", or "authenticators".
+    # The job of each authenticator is to look at the request to see if there is any authentication info on it - 
+    # like a submitted email & password or maybe an API token that's stored on a header. 
+    # If an authenticator finds some info, it then tries to use it to find the user, 
+    # check the password if there is one, and log in the user! Our job is to write these authenticators.
+    # Remember authentication and authorization:
+    #  Authentication is all about finding out who you are and making you prove it. It's the login process. 
+    #  Authorization happens after authentication: it's all about determining whether or not you have access to something.
+    # The whole job of the firewall is to authenticate you: to figure out who you are.
+    # Symfony gave us two firewalls by default!
+    # at the beginning of each request, Symfony determines the one firewall that matches the current request. 
+    # It does that by comparing the URL to the regular expression pattern config.
+    # And if you look closely... the first firewall is a fake!
+    # In reality, we only have one real firewall called main :
+    # And because it does not have a pattern key, it will be the active firewall for all URLs,
+    # Anyways, because the job of a firewall is to authenticate the user, 
+    # most of the config that goes below a firewall relates to "activating" new authentication listeners - 
+    # those things that execute at the beginning of Symfony and try to log in the user.
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: true
-
             # activate different ways to authenticate
+            guard: 
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+
+            
 
             # http_basic: true
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
