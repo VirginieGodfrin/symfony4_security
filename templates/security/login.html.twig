@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello toi !{% endblock %}
+
+{# specify a css file to one html.twig file #}
+{% block stylesheets %}
+	{# This will print the content of the parent block #}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+	<h1>Login to the SpaceBar!</h1>
+	{# Copy-colle from https://symfony.com/doc/current/security/form_login_setup.html #}
+	{# If a form doesn't have an action attribute, it will submit right back to the same URL - /login - which is what I want anyways. #}
+	<form class="form-signin" method="post">
+		{% if error %}
+			{#  The only special part is this error variable, which, when we're done, will be the authentication error if the user just entered a bad email or password #}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+
+		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+		<label for="inputEmail" class="sr-only">Email address</label>
+		<input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required auto> 
+		<label for="inputPassword" class="sr-only">Password</label>
+		<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" requir <div class="checkbox mb-3">
+		<label>
+		<input type="checkbox" value="remember-me"> Remember me
+		</label> </div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit"> Sign in
+		</button> 
+	</form>
+{% endblock %}
+
+
