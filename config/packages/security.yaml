@@ -2,6 +2,7 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
+        # the provider key : This is called a "user provider". Each User class needs a corresponding "user provider"
         app_user_provider:
             entity:
                 class: App\Entity\User

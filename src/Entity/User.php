@@ -7,6 +7,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 // User entity created with maker-bundle => make:user 
 // Also defin like user provider in services.yaml
+// User class must implement UserInterface and his extra method :
+//  getUsername() that return email (visual identifier for the user)
+//  getRoles()
+//  getPassword() 
+//  getSalt()
+//  eraseCredentials()
+// Anyway User class is a Doctrine entity !
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
