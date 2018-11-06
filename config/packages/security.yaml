@@ -42,6 +42,16 @@ security:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
+            # As soon as you add this key, if the user checks a checkbox whose name is _remember_me , 
+            # then a "remember me" cookie will be instantly set and used to log in the user if their session expires. 
+            # This secret option is a cryptographic secret that's used to sign the data in that cookie. 
+            # If you ever need a cryptographic secret, Symfony has a parameter called kernel.secret . 
+            # Remember: anything surrounded by percent signs is a parameter. 
+            # We never created this parameter directly: this is one of those built-in parameters that Symfony always makes available.
+            # To see a list of all of the parameters : php bin/console debug:container --parameters
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 2592000 # 30 days in seconds
 
             
 

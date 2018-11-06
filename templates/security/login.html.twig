@@ -26,7 +26,10 @@
 		<label for="inputPassword" class="sr-only">Password</label>
 		<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" requir <div class="checkbox mb-3">
 		<label>
-		<input type="checkbox" value="remember-me"> Remember me
+			{# add name attribute with "_remember_me" value, That's the magic name that Symfony will look for #}
+			{# see it in action, go to Application, Cookies. Right now, there is only one: PHPSESSID . #}
+			{# A totally new session was created - with a new id. But even though this new session is empty, the remember me cookie causes us to stay logged in. You can even see that there's a new Token class called RememberMeToken . That's a low-level detail, but, it's a nice way to prove that this just worked. #}
+		<input type="checkbox"  name="_remember_me"> Remember me
 		</label> </div>
 		{# add manualy csrf_token input to form #}
 		<input type="hidden" 
