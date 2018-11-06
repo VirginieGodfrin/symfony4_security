@@ -17,6 +17,8 @@ class SecurityController extends AbstractController
     {
     	// Copy-colle this method from https://symfony.com/doc/current/security/form_login_setup.html
         // get the login error if there is one
+        // our authenticator stores the error in the session
+        // the lastAuthenticationError() method is just a shortcut to read that key off of the session!
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();

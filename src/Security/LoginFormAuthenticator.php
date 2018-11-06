@@ -11,6 +11,7 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use App\Repository\UserRepository;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Security;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -40,10 +41,18 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 		// getCredentials's job: read our authentication credentials off of the request and return them.
 		// we'll return the email and password . 
 		// But, if this were an API token authenticator, we would return that token. We'll see that later.
-		return [
-				'email' => $request->request->get('email'), 
-				'password' => $request->request->get('password'),
+		// Store the last user name into the session.
+		$credentials = [
+			'email' => $request->request->get('email'), 
+			'password' => $request->request->get('password'),
 		];
+		// set the email onto the session
+		// Use a special key: Security
+		$request->getSession()->set( 
+			Security::LAST_USERNAME, 
+			$credentials['email']
+		);
+		return $credentials;
 	}
 
 	public function getUser($credentials, UserProviderInterface $userProvider) {
@@ -80,7 +89,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 	}
 
 	protected function getLoginUrl() {
-		
+		//  if we fail login, the user should be redirected back to the login page.
+		return $this->router->generate('app_login');
 	}
 
 }
