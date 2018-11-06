@@ -1,0 +1,6 @@
+# This file is called security because of this security key in the translator.
+# This is called the translation "domain" - it's kind of a translation category - a way to organize things.
+
+# On way to change login error message is to translate it in an other login error message
+
+"Username could not be found.": "Oh oh oh! It doesn't look like that email exists!"

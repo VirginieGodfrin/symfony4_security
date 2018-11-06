@@ -28,4 +28,17 @@ class SecurityController extends AbstractController
             'error' => $error
         ]);
     }
+
+    /**
+     * @Route("/logout", name="app_logout") 
+     */
+    public function logout()
+    {
+        // Remember how "authenticators" run automatically at the beginning of every request, before the controllers? 
+        // The logout process works the same way. All we need to do is tell Symfony what URL we want to use for logging out.
+        // at the beginning of that request, Symfony will automatically log the user out and then redirect them... 
+        // all before the controller is ever executed.
+        // get a look to security.yaml
+        throw new \Exception('Will be intercepted before getting here');
+    }
 }
