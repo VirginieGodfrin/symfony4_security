@@ -9,12 +9,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use App\Repository\UserRepository;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
-	public function __construct(UserRepository $userRepository)
+	private $userRepository;
+	private $router;
+
+	public function __construct(UserRepository $userRepository, RouterInterface $router)
 	{
 		$this->userRepository = $userRepository;
+		$this->router = $router;
 	}
 	
 	 // the supports() method is always called at the start of the request.
@@ -61,7 +67,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 	}
 
 	public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey) {
-		dd('success');
+		// Now that the user is authenticated, what do you want to do?
+		// For a form login system: redirect to another page 
+		// For an API token system: nothing
+		// Redirecting on Success (send the user to the homepage)
+		// to redirect in Symfony, you return a RedirectResponse object, which is a sub-class of the normal Response . 
+		// It just sets the status code to 301 or 302 and adds a Location header that points to where the user should go. 
+		// a redirect is just a special type of response!
+		// generateUrl() , is a shortcut to use the "router" to convert a route name into its URL
+		$url = $this->router->generate('app_homepage');
+		return new RedirectResponse($url);
 	}
 
 	protected function getLoginUrl() {

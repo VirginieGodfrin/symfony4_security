@@ -3,6 +3,11 @@ security:
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         # the provider key : This is called a "user provider". Each User class needs a corresponding "user provider"
+        # This user class is necessery to the process of loading the user info from the session.
+        # when you refresh the page, the User object is loaded from the session.
+        # So, that's the job of the user provider. 
+        # When we refresh, the user provider takes the User object from the session and uses its id to query for a fresh User object.
+        # The user provider refresh the session (important)
         app_user_provider:
             entity:
                 class: App\Entity\User
