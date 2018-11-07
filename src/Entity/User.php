@@ -102,7 +102,7 @@ class User implements UserInterface
      */
     public function getPassword()
     {
-        // not needed for apps that do not check user passwords
+        return $this->password;
     }
 
     /**
@@ -134,8 +134,8 @@ class User implements UserInterface
         return $this;
     }
 
-    public function setPassword(string $password): self
-    {
+    public function setPassword(string $password): self {
+
         $this->password = $password;
 
         return $this;

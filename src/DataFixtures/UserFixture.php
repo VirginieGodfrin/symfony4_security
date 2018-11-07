@@ -32,7 +32,7 @@ class UserFixture extends BaseFixture
 
             $user->setPassword($this->passwordEncoder->encodePassword( 
                 $user,
-                'foo'
+                'engage'
             ));
 
     		return $user;
