@@ -88,7 +88,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 		// dd($user);
 		// in many systems, simply returning true because authentication is successful! 
 		// For example, if you have an API token system, there's no password.
-		return true;
+		// 
+		// check the pasword with passwordEncoder
+		return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
 	}
 
 	public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey) {
