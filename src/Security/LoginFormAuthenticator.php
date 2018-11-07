@@ -16,9 +16,17 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
+	// before Symfony redirects to the login page, it saves this URL -/admin/comment - 
+	// into the session on a special key.
+	// So, if we can read that value from the session inside onAuthenticationSuccess() , 
+	// we can redirect the user back there!
+	// to do it ...
+	use TargetPathTrait;
+
 	private $userRepository;
 	private $router;
 	private $csrfTokenManager;
@@ -102,6 +110,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 		// It just sets the status code to 301 or 302 and adds a Location header that points to where the user should go. 
 		// a redirect is just a special type of response!
 		// generateUrl() , is a shortcut to use the "router" to convert a route name into its URL
+		
+		// use targetpath with session and providerKey (the name of your firewall)
+		if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
+			// if there is something stored in the session
+			return new RedirectResponse($targetPath);
+		}
+		// If there is no target path in the session
 		$url = $this->router->generate('app_homepage');
 		return new RedirectResponse($url);
 	}

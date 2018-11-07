@@ -69,5 +69,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     # Authorization is all about deciding whether or not a user should have access to something
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
