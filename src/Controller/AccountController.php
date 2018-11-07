@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 // new controller : make:controller
 
 /**
- * @IsGranted("ROLE_ADMIN") 
+ * @IsGranted("ROLE_USER") 
  */
 class AccountController extends AbstractController
 {

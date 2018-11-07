@@ -69,5 +69,26 @@ security:
     # Note: Only the *first* access control that matches will be used
     # Authorization is all about deciding whether or not a user should have access to something
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+
+        # IS_AUTHENTICATED_FULLY: a string that simply checks if the user is logged in or not. it's work like ROLE_USER .
+        # - { path: ^/account, roles: IS_AUTHENTICATED_FULLY }
+        
+        # but, definitely allow /login to be accessible anonymously
+        # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # if you wanted to force EVERY URL to be protected
+        # Then you can protect more sensitive pages - like the change password page
+        # - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+        # this two access_control force us to login at first
+        
+        # if you wanted to force EVERY URL to be protected
+        # If you use the remember me functionality you should protect all pages that require login with IS_AUTHENTICATED_REMEMBERED
+        # This says that you don't care whether the user just logged in during this session or if they are logged in via the remember me cookie. 
+        # - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
+        
+        # but, definitely allow /login to be accessible anonymously
+        # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # require the user to fully login to change password
+        # - { path: ^/change-password, roles: IS_AUTHENTICATED_FULLY }
+        # if you wanted to force EVERY URL to be protected
+        # - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
+
