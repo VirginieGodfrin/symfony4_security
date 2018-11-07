@@ -33,19 +33,26 @@
                     <button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
                 </form>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a style="color: #fff;" class="nav-link" href="{{ path('app_login') }}">Login</a> 
-                    </li>
-                   {#  <li class="nav-item dropdown" style="margin-right: 75px;">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <img class="nav-profile-img rounded-circle" src="{{ asset('images/astronaut-profile.png') }}">
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Create Post</a>
-                            <a class="dropdown-item" href="#">Logout</a>
-                        </div>
-                    </li> #}
+                    {# is_granted in twig #}
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav-item dropdown" style="margin-right: 75px;">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <img class="nav-profile-img rounded-circle" src="{{ asset('images/astronaut-profile.png') }}">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ path('app_account') }}">Profile</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a class="dropdown-item" href="{{ path('admin_article_new') }}">Create Post</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a style="color: #fff;" class="nav-link" href="{{ path('app_login') }}">Login</a> 
+                        </li>
+                    {% endif %}
+                    
                 </ul>
             </div>
         </nav>

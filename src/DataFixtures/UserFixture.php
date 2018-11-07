@@ -38,6 +38,22 @@ class UserFixture extends BaseFixture
     		return $user;
 		});
 
+        $this->createMany(10, 'admin_users', function($i) {
+            $user = new User();
+            $user->setEmail(sprintf('admin%d@example.com', $i));
+            // We an use Faker, which we already setup inside
+            $user->setFirstName($this->faker->firstName);
+
+            $user->setPassword($this->passwordEncoder->encodePassword( 
+                $user,
+                'admin'
+            ));
+
+            $user->setRoles(['ROLE_ADMIN']);
+
+            return $user;
+        });
+
         $manager->flush();
     }
 }

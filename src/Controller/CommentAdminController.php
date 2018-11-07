@@ -15,10 +15,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class CommentAdminController extends Controller
 {
-    // second way to deny access controll : IsGranted Annotation
+    // second way to deny access controll : IsGranted Annotation - @IsGranted("ROLE_USER")
     /**
      * @Route("/admin/comment", name="comment_admin")
-     * @IsGranted("ROLE_USER")
      */
     public function index(CommentRepository $repository, Request $request, PaginatorInterface $paginator)
     {
