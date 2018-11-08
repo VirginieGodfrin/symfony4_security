@@ -34,6 +34,10 @@ class UserFixture extends BaseFixture
                 $user,
                 'engage'
             ));
+            // $faker->boolean return true or false randomly
+            if ($this->faker->boolean) { 
+                $user->setTwitterUsername($this->faker->userName);
+            }
 
     		return $user;
 		});
