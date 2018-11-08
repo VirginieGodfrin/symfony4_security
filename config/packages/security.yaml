@@ -12,6 +12,7 @@ security:
         # So, that's the job of the user provider. 
         # When we refresh, the user provider takes the User object from the session and uses its id to query for a fresh User object.
         # The user provider refresh the session (important)
+        # If you're using the Doctrine user provider, this property key determines which field will be used for remember_me & switch_user
         app_user_provider:
             entity:
                 class: App\Entity\User
@@ -62,6 +63,10 @@ security:
             remember_me:
                 secret:   '%kernel.secret%'
                 lifetime: 2592000 # 30 days in seconds
+            # switch_user
+            # ?_switch_user=provider.key
+            # ?_switch_user=_exit
+            switch_user: true
 
             
 
