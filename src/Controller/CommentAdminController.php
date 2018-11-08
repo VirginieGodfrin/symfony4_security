@@ -10,8 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 // third way to deny access controll : Protecting an Entire Controller Class
+// name the rôle with collection name and not with user "activity"
 /**
- * @IsGranted("ROLE_ADMIN") 
+ * @IsGranted("ROLE_ADMIN_COMMENT") 
  */
 class CommentAdminController extends Controller
 {

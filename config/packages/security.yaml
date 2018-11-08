@@ -16,6 +16,12 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+
+    # good way to assign differents rôles to one without change user rôle in db
+    # Now, anybody that has ROLE_ADMIN also has these two roles, 
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_ADMIN_COMMENT, ROLE_ADMIN_ARTICLE, ROLE_ALLOWED_TO_SWITCH]
+
     # Remember the authenticators: At the beginning of every request, Symfony calls a set of "authentication listeners", or "authenticators".
     # The job of each authenticator is to look at the request to see if there is any authentication info on it - 
     # like a submitted email & password or maybe an API token that's stored on a header. 
