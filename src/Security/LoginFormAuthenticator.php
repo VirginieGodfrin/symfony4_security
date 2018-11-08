@@ -18,6 +18,9 @@ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+// about security  entry_point : In our app, we will always redirect anonymous users to the login form. Of course, if you want to make this logic smarter, you could override the start() method in LoginFormAuthenticator and make it do different things under different conditions. Like, maybe you return an API response instead of redirecting if the URL starts with /api .
+
+
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
 	// before Symfony redirects to the login page, it saves this URL -/admin/comment - 

@@ -51,6 +51,13 @@ security:
             guard: 
                 authenticators:
                     - App\Security\LoginFormAuthenticator
+                    - App\Security\ApiTokenAuthenticator
+                # Your firewall has exactly one "entry point" and its job is simple: 
+                # to determine what should happen when an anonymous user tries to access a protected page.
+                # Every authenticator has a method called start() and it is the entry point. 
+                # This is the method that Symfony calls when an anonymous user tries to access a protected page. 
+                # And, no surprises: it redirects you to the login page.
+                entry_point: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
             # As soon as you add this key, if the user checks a checkbox whose name is _remember_me , 
