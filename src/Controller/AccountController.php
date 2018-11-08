@@ -26,4 +26,22 @@ class AccountController extends BaseController
             
         ]);
     }
+    /**
+     * @Route("/api/account", name="api_account")
+     */
+    public function accountApi()
+    {
+        $user = $this->getUser();
+        // jsnon() - checks to see if Symfony's serializer component is installed.
+        // all it does internally is called json_encode() on that data we pass in.
+        // Do you know what happens when you call json_encode() on an object in PHP? 
+        // It only... sorta works: it encodes only the public properties on that class. 
+        // And because we have no public properties, we get back nothing! AH AH !
+        // return $this->json($user);
+        // to tell the json() method to only serialize properties that are in the group called "main".
+        // json(data, statut code, header, groups)
+        return $this->json($user, 200, [], [ 
+            'groups' => ['main'],
+        ]);
+    }
 }

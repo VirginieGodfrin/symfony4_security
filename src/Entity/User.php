@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 // User entity created with maker-bundle => make:user 
 // Also defin like user provider in services.yaml
@@ -15,6 +16,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 //  eraseCredentials()
 // Anyway User class is a Doctrine entity !
 // Adding more Fields to User => make:entity
+
+// To control which fields are serialized, above each property, 
+// you can use an annotation to organize into "groups"
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -30,6 +34,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("main")
      */
     private $email;
 
@@ -45,11 +50,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("main")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("main")
      */
     private $twitterUsername;
 
