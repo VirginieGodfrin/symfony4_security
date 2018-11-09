@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello toi !{% endblock %}
+{% block title %}Hello login !{% endblock %}
 
 {# specify a css file to one html.twig file #}
 {% block stylesheets %}
@@ -10,7 +10,6 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Login to the SpaceBar!</h1>
 	{# Copy-colle from https://symfony.com/doc/current/security/form_login_setup.html #}
 	{# If a form doesn't have an action attribute, it will submit right back to the same URL - /login - which is what I want anyways. #}
 	<form class="form-signin" method="post">
