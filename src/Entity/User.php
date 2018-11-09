@@ -220,4 +220,8 @@ class User implements UserInterface
 
         return $this;
     }
-}
+    // Exception thrown rendering the template Catchable Fatal Error: 
+    // Object of Class Proxies\__CG__\App\Entity\User cannot be converted to string.
+    public function __toString() {
+        return $this->getFirstName(); }
+    }

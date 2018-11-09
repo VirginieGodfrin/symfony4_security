@@ -32,6 +32,8 @@
                                 </small>
                             {% endfor %}
                             <br>
+                            {# An exception has been thrown during the rendering of a template ("Catchable Fatal Error: Object of class Proxies\__CG__\App\Entity\User could not be converted to string"). #}
+                            {# the error itself basically means that something is trying to convert our User object into a string . #}
                             <span class="align-left article-details"><img class="article-author-img rounded-circle" src="{{ asset('images/alien-profile.png') }}"> {{ article.author }} </span>
                             <span class="pl-5 article-details float-right"> {{ article.publishedAt ? article.publishedAt|ago }}</span>
                         </div>
