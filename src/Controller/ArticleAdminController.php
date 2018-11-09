@@ -28,18 +28,14 @@ class ArticleAdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/article/{id}/edit") 
+     * @Route("/admin/article/{id}/edit")
+     * @IsGranted("MANAGE", subject="article")
      */
     public function edit(Article $article)
     {
-        // voter:  I'm using the same isGranted() function as before. 
-        // But instead of passing a role, I'm just "inventing" a string: MANAGE . 
-        // It also turns out that isGranted() has an optional second argument: 
-        // a piece of data that is relevant to making this access decision.
-        // read the doc for more explain 
-        if (!$this->isGranted('MANAGE', $article)) {
-            throw $this->createAccessDeniedException('No access!');
-        }
+        // make:voter - call it ArticleVoter . It's pretty common to have one voter per object that you need to decide access for
+        // $this->denyAccessUnlessGranted('MANAGE', $article);
+        // read the doc to use voter :-)
         dd($article);
     }
 }
