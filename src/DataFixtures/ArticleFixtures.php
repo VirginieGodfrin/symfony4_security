@@ -56,8 +56,8 @@ EOF
             if ($this->faker->boolean(70)) {
                 $article->setPublishedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
             }
-
-            $article->setAuthor($this->faker->randomElement(self::$articleAuthors))
+            // Let's allow normal users to be the author of an Article 
+            $article->setAuthor($this->getRandomReference('main_users'))
                 ->setHeartCount($this->faker->numberBetween(5, 100))
                 ->setImageFilename($this->faker->randomElement(self::$articleImages))
             ;
@@ -77,6 +77,7 @@ EOF
     {
         return [
             TagFixture::class,
+            UserFixture::class, //Now UserFixture will definitely run before ArticleFixtures 
         ];
     }
 }
