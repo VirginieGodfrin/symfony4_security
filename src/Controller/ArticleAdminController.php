@@ -32,26 +32,14 @@ class ArticleAdminController extends AbstractController
      */
     public function edit(Article $article)
     {
-        // rememeber : Because Article is an entity, SensioFrameworkExtraBundle 
-        // - a bundle we installed a long time ago - will use the {id} route parameter to query for the correct Article .
-        
-        // I want to allow access if you have ROLE_ADMIN_ARTICLE or if you are the author of this Article .
-        // enforce the security logic
-        // The $this->isGranted() method is new to us, but simple: 
-        // it returns true or false based on whether or not the user has ROLE_ADMIN_ARTICLE . 
-        // createAccessDeniedException() : that method is just a shortcut to call $this->isGranted() 
-        // and then throw $this->createAccessDeniedException() if that returned false
-        // The cool takeaway is that, the way you ultimately deny access in Symfony is by throwing a special exception object 
-        // that this method creates. Oh, and the message - No access! - that's only shown to developers.
-        if ($article->getAuthor() != $this->getUser() && !$this->isGranted('ROLE_ADMIN_ARTICLE')) { 
+        // voter:  I'm using the same isGranted() function as before. 
+        // But instead of passing a role, I'm just "inventing" a string: MANAGE . 
+        // It also turns out that isGranted() has an optional second argument: 
+        // a piece of data that is relevant to making this access decision.
+        // read the doc for more explain 
+        if (!$this->isGranted('MANAGE', $article)) {
             throw $this->createAccessDeniedException('No access!');
         }
         dd($article);
-        // I don't want this important logic to live in my controller. 
-        // Why not? What if I need to re-use this somewhere else? 
-        // Duplicating security logic is a bad idea. 
-        // And, what if I need to use it in Twig to hide or show an edit link? 
-        // That would really be ugly.
-        // Nope, there's a better way: a wonderful system called voters.
     }
 }
